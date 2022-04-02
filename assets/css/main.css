@@ -115,6 +115,7 @@ input, select, textarea {
 	}
 
 		a:hover {
+			/* cor do link */
 			color: #62dd8c !important;
 		}
 
