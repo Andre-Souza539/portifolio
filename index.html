@@ -25,6 +25,8 @@
 					<li><a href="#work">Habilidades</a></li>
 					<li><a href="#portfolio">Trabalho/Estudos</a></li>
 					<li><a href="#contact">Contato</a></li>
+					<li><div id="google_translate_element" style="display:none"></div></li>
+					<li><input value="en" id="language"/><button onclick="changeLanguageByButtonClick()">Translate</button></li>
 					<li><a href="javascript:void(0);" class="topnav-icons fa w3-right w3-bar-item w3-button" onclick="gTra(this)" title="Translate W3Schools"></a></li>
 				</ul>
 			</nav>
@@ -171,15 +173,24 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script type="text/javascript">
-				function gTra(el) {
-					var gtra = document.createElement('script'); gtra.id = 'gTra'; gtra.type = 'text/javascript'; gtra.async = true;
-					gtra.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-					var el = document.getElementById('gTra');
-					if (el == null) {
-						var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gtra, s);
+				function googleTranslateElementInit() {
+				new google.translate.TranslateElement({pageLanguage: "en"}, 'google_translate_element');
+				}
+
+				function changeLanguageByButtonClick() {
+				var language = document.getElementById("language").value;
+				var selectField = document.querySelector("#google_translate_element select");
+				for(var i=0; i < selectField.children.length; i++){
+					var option = selectField.children[i];
+					// find desired langauge and change the former language of the hidden selection-field
+					if(option.value==language){
+						 selectField.selectedIndex = i;
+						 // trigger change event afterwards to make google-lib translate this side
+						 selectField.dispatchEvent(new Event('change'));
+						 break;
 					}
-					open_translate(el);
-				};
+				}
+				}
 			</script>
 	</body>
 </html>
